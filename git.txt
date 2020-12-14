@@ -1,0 +1,38 @@
+Steps to work with Git and Github
+----------------------------
+Setup a SSH key
+_________
+1. Create a new key: ssh-keygen -t [algorithm] -C "your_email@example.com"
+2. Press Enter to save the key in default location.
+3. Type paraphrase as prompt, twice.
+4. Start ssh-agent manually: eval $(ssh-agent -s)
+   Add key to ssh-agent: ssh-add ~/.ssh/"key"
+5. Copy key to clipboard: clip < "path_to_key"
+6. Go to GitHub Account -> Settings -> SSH and GPG keys -> New SSH key
+7. Paste key and continue.
+8. Change paraphrase: https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/working-with-ssh-key-passphrases
+_________
+
+
+Creating a repository
+_________
+1. Create a repository on GitHub
+2. Clone to local: git clone "link_to_repository"
+3. ????: git remote add "remote_name" "remote_url"
+3. Go to the repository in local machine
+4. Initiate: git init
+5. Make some changes.
+6. Add a commit: git commit -m "Add some commit descriptions"
+7. Check status: git status
+   List all commitments: git log
+8. Push to remote repository: git push [-options] "remote_name" "branch"
+9. 
+
+
+
+
+
+
+--------------
+1. git branch -a: List all branchs
+2. 
