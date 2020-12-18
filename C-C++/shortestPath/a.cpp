@@ -1,56 +1,56 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define f first
+#define s second
 
 FILE *fi,*fo;
-int u,v,w,m,n,s,f;
-int p[10],d[10];
-int a[10][10];
+int u,v,m,n,s,f,c;
+long long int parent[11],dist[11];
+vector<pair<int,int>> w[11];
 vector<int> edge,candidate;
+stack<int> res;
 
 void Dijkstra()
 {
     for (int i = 1; i <= n; i++)
     {
-        if (a[i][s] != 0) d[i] = a[i][s];
-        else d[i] = INT_MAX;
-        p[i] = s;
+        dist[i] = INT_MAX;
+        parent[i] = s;
         if (i != s) candidate.push_back(i);
     }
-    d[s] = 0;
-    p[s] = s;
+    for (auto i: w[s]) dist[i.f] = i.s;
+    dist[s] = 0;
     edge.push_back(s);
+    
     while (candidate.size())
     {
-        int temp = 999;
-        int ii;
-        for (int i = 0; i < candidate.size(); i++)
+        int temp = INT_MAX;
+        int u;
+        for (auto v : candidate)
         {
-            if (temp > d[candidate[i]]  && a[candidate[i]][edge[edge.size()-1]] > 0)
+            if (temp > dist[v])
             {
-                temp = d[candidate[i]];
-                ii = candidate[i];
+                temp = dist[v];
+                u = v;
             }
         }
-        for (int i = 0; i < candidate.size(); i++)
+        for (int i = 0; v < candidate.size(); i++)
         {
-            if (candidate[i] == ii)
+            if (candidate[i] == u)
             {
-                candidate.erase(candidate.begin()+i);
+                candidate.erase(candidate.begin()+i);   
                 break;
             }
         }
-        edge.push_back(ii);
-        for (auto i : candidate)
+        edge.push_back(u);
+        if (u == f) return;
+
+        for (auto i : w[u])
         {
-            if (d[i] >= d[ii] + a[i][ii])
+            if (dist[i.f] >= dist[u] + i.s)
             {
-                d[i] = d[ii] + a[ii][i];
-                p[i] = ii;
-                if (i == f)
-                {
-                    edge.push_back(f);
-                    return;
-                }
+                dist[i.f] = dist[u] + i.s;
+                parent[i.f] = u;
             }
         }
     }
@@ -60,23 +60,26 @@ int main()
 {
     fi=freopen("a.inp","r",stdin);
     fo=freopen("a.out","w",stdout);
-    fscanf(fi,"%d%d",&n,&m);
-    /*n=4;m=6;
-    a[2][1]=a[1][2]=3;
-    a[2][3]=a[3][2]=1;
-    a[3][1]=a[1][3]=10;
-    a[4][1]=a[1][4]=5;
-    a[3][4]=a[4][3]=5;
-    a[4][2]=a[2][4]=6;
-    s=2;f=4;*/
+    cin>>n>>m;
     for (int i = 1; i <= m; i++)
     {
-        fscanf(fi,"%d%d%d",&u,&v,&w);
-        a[u][v] = a[v][u] = w;
+        cin>>u>>v>>c;
+        w[u].push_back(make_pair(v,c));
+        w[v].push_back(make_pair(u,c));
     }
     cin>>s>>f;
     Dijkstra();
-    for (auto i : edge) cout<<i<<" ";
-
+    cout<<dist[f]<<endl;
+    while (f != s)
+    {
+        res.push(f);
+        f = parent[f];
+    }
+    cout<<s<<" ";
+    while (res.size())
+    {
+        cout<<res.top()<<" ";
+        res.pop();
+    }
     return 0;   
 }
