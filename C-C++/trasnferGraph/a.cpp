@@ -2,9 +2,9 @@
 using namespace std;
 
 FILE *fi,*fo;
-int m,n,u,v,cnt,parent[9],s,f;
+int m,n,u,v,cnt,parent[1000001],s,f;
 vector<pair<int,int>> a;
-int visited[9]={0};
+int visited[1000001];
 stack<int> res;
 
 void BFS(int s)
