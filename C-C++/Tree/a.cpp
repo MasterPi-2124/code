@@ -84,18 +84,18 @@ typedef struct Tree
 	{
 		if (u == NULL)
 			return;
-		preOrder(u->child);
-		cout<<u->data<<endl;
-		preOrder(u->neighbor);
+		inOrder(u->child);
+		cout<<u->data<<" ";
+		inOrder(u->neighbor);
 	}
 
 	void postOrder(Node* u)
 	{
 		if (u == NULL)
 			return;
-		preOrder(u->child);
-	    preOrder(u->neighbor);
-		cout<<u->data<<endl;
+		postOrder(u->child);
+		cout<<u->data<<" ";
+	    postOrder(u->neighbor);
 	}
 
 } Tree;
@@ -107,18 +107,18 @@ int main()
    	Tree t;
 	t.root = new Node(1);
 	Node* root=t.root;
-    t.insert_child(11,root);
+    t.insert_child(2,root);
 	Node* a = root->child;
-    t.insert_neighbor(12,a);
-	t.insert_child(111,a);
-	t.insert_neighbor(112,a->child);
-	a = a->neighbor;
-	t.insert_child(121,a);
-	t.insert_neighbor(122,a->child);
-	t.preOrder(root);
-	cout<<t.size();
-//	t.remove(a);
-	//t.preOrder(root);
-	//cout<<t.size();	
+    t.insert_neighbor(9,a);
+	t.insert_child(3,a);
+	t.insert_neighbor(4,a->child);
+	t.insert_child(10,a->neighbor);
+	t.insert_neighbor(11,a->neighbor->child);
+	t.insert_child(5,a->child->neighbor);
+	t.insert_neighbor(6,a->child->neighbor->child);
+	t.insert_neighbor(7,a->child->neighbor->child->neighbor);
+	t.insert_child(8,a->child->neighbor->child->neighbor->neighbor);
+	t.insert_child(12,a->neighbor->child->neighbor);
+	t.inOrder(root);
     return 0;
 }
