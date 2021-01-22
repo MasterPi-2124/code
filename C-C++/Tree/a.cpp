@@ -13,7 +13,7 @@ typedef struct Node{
         neighbor = NULL;
 		child = NULL;
     }
-};
+} Node;
 
 typedef struct Tree
 {
@@ -82,11 +82,19 @@ typedef struct Tree
 
 	void inOrder(Node* u)
 	{
-		if (u == NULL)
+		if (u -> child == NULL)
+		{
+			cout<<u -> data<<" ";
 			return;
-		inOrder(u->child);
-		cout<<u->data<<" ";
-		inOrder(u->neighbor);
+		}
+		inOrder(u -> child);
+		cout<<u -> data<<" ";
+		Node *temp = u -> child;
+		while (temp -> neighbor != NULL)
+		{
+			temp = temp -> neighbor;
+			inOrder(temp);
+		}
 	}
 
 	void postOrder(Node* u)
@@ -119,6 +127,12 @@ int main()
 	t.insert_neighbor(7,a->child->neighbor->child->neighbor);
 	t.insert_child(8,a->child->neighbor->child->neighbor->neighbor);
 	t.insert_child(12,a->neighbor->child->neighbor);
+	
+	cout<<"InOrder: ";
 	t.inOrder(root);
+	cout<<endl<<"PostOrder: ";
+	t.postOrder(root);
+	cout<<endl<<"PreOrder: ";
+	t.preOrder(root);
     return 0;
 }

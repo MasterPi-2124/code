@@ -8,9 +8,9 @@ typedef struct Node
 {
     int key;
     struct Node *left, *right, *parent;
-};
+} Node;
 
-typedef struct tree
+typedef struct searchTree
 {
     Node *root;
 
@@ -188,18 +188,30 @@ typedef struct tree
 		inOrder(u -> right);
 	}
 
-} tree;
-
-tree t;
+} searchTree;
+searchTree t;
+/*
+bool isLeft(Node *r, int k)
+{
+	if (r == NULL) return 1;
+	if (r -> key >= k) return 0;
+	return isLeft(r -> left,k) && isLeft(r -> right,k);
+}
+*/
 int main()
 {
     fi=freopen("a.inp","r",stdin);
     fo=freopen("a.out","w",stdout);
     cin>>n;
+    
     for (int i = 1; i <= n; i++)
     {
         cin>>x;
         t.insert(x);
     }
+    t.inOrder(t.root);
+    cout<<endl;
+
+    //cout<<isLeft(t.root,562);
     return 0;   
 }
